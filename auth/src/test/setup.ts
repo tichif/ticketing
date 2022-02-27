@@ -1,14 +1,16 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
-import '@types/jest';
+// import jest from '@types/jest'
 
 import { app } from '../app';
 
 let mongo: any;
 
 beforeAll(async () => {
-  mongo = new MongoMemoryServer();
-  const mongoURI = await mongo.getUri();
+  process.env.JWT_KEY = 'hbdhbjhbjz';
+
+  mongo = await MongoMemoryServer.create();
+  const mongoURI = mongo.getUri();
 
   await mongoose.connect(mongoURI);
 });
