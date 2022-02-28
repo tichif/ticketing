@@ -1,12 +1,22 @@
 import { useState } from 'react';
+import axios from 'axios';
 
 const SignupPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(email, password);
+    const { data } = await axios.post(
+      '/api/users/signup',
+      { email, password },
+      {
+        headers: {
+          'COntent-Type': 'application/json',
+        },
+      }
+    );
+    console.log(data);
   };
 
   return (
