@@ -4,19 +4,24 @@ import axios from 'axios';
 const SignupPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState([]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const { data } = await axios.post(
-      '/api/users/signup',
-      { email, password },
-      {
-        headers: {
-          'COntent-Type': 'application/json',
-        },
-      }
-    );
-    console.log(data);
+    try {
+      const { data } = await axios.post(
+        '/api/users/signup',
+        { email, password },
+        {
+          headers: {
+            'COntent-Type': 'application/json',
+          },
+        }
+      );
+      console.log(data);
+    } catch (error) {
+      setErrors(error.response.data.errors);
+    }
   };
 
   return (
@@ -40,6 +45,16 @@ const SignupPage = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
+      {errors.length > 0 && (
+        <div className='alert alert-danger'>
+          <h4>Ooups....</h4>
+          <ul className='my-0'>
+            {errors.map((error) => {
+              return <li key={error.message}>{error.message}</li>;
+            })}
+          </ul>
+        </div>
+      )}
       <button type='submit' className='btn btn-primary mt-3'>
         Sign Up
       </button>
