@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import { useRouter } from 'next/router';
 
 import useRequest from '../../hooks/useRequest';
 
@@ -7,10 +7,13 @@ const SignupPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const router = useRouter();
+
   const { doRequest, errors } = useRequest({
     url: '/api/users/signup',
     method: 'post',
     body: { email, password },
+    onSuccess: () => router.push('/'),
   });
 
   const submitHandler = async (e) => {
