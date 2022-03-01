@@ -9,12 +9,12 @@ export const getServerSideProps = async (ctx) => {
   // http://ingress-nginx.ingress-nginx.svc.cluster.local
   // lyen sa ap pemet ou kominike ak yon lot sevis
   // le wap itilize SSR
+
+  const { req } = ctx;
   const { data } = await axios.get(
     'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/current-user',
     {
-      headers: {
-        Host: 'ticketing.dev',
-      },
+      headers: req.headers,
     }
   );
   return {
