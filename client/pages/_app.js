@@ -1,10 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
 
+import Header from '../components/header';
+
 function MyApp({ Component, pageProps, currentUser }) {
   return (
     <div>
-      <h1>{currentUser.email}</h1>
+      <Header currentUser={currentUser} />
       <Component {...pageProps} />
     </div>
   );
@@ -17,7 +19,7 @@ MyApp.getInitialProps = async (appContext) => {
       {
         headers: {
           Host: 'ticketing.dev',
-          Cookie: appContext.ctx.req.headers.cookie,
+          Cookie: appContext.ctx.req.headers.cookie || null,
         },
       }
     );
