@@ -1,8 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+function MyApp({ Component, pageProps, currentUser }) {
+  return (
+    <div>
+      <h1>{currentUser.email}</h1>
+      <Component {...pageProps} />
+    </div>
+  );
 }
 
 MyApp.getInitialProps = async (appContext) => {
@@ -22,7 +27,10 @@ MyApp.getInitialProps = async (appContext) => {
       pageProps = await appContext.Component.getInitialProps(appContext.ctx);
     }
 
-    return data;
+    return {
+      pageProps,
+      currentUser: data.currentUser,
+    };
   } else {
     const { data } = await axios.get('/api/users/current-user');
 
