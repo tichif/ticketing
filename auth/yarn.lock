@@ -510,6 +510,19 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
+"@tichif-ticketing/common@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@tichif-ticketing/common/-/common-1.0.4.tgz#bbe109ec417f57f046fa730b183cbc52b21f2d59"
+  integrity sha512-0q3pGab6gcNzZyfInwwRVivi6AgriTrqomtIjAPguNRtW0YEg5bPBNvQZ0KZqG9vIL60/AtB59eWIhZ7zpnznQ==
+  dependencies:
+    "@types/cookie-session" "^2.0.44"
+    "@types/express" "^4.17.13"
+    "@types/jsonwebtoken" "^8.5.8"
+    cookie-session "^2.0.0"
+    express "^4.17.3"
+    express-validator "^6.14.0"
+    jsonwebtoken "^8.5.1"
+
 "@tootallnate/once@1":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-1.1.2.tgz#ccb91445360179a04e7fe6aff78c00ffc1eeaf82"

@@ -3,9 +3,11 @@ import { body, validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
 
 import { Password } from '../utils/password';
-import { RequestValidationError } from '../errors/request-validation-error';
+import {
+  RequestValidationError,
+  BadRequestError,
+} from '@tichif-ticketing/common';
 import { User } from '../models/user';
-import { BadRequestError } from '../errors/bad-request-error';
 
 const router = express.Router();
 
