@@ -4,6 +4,7 @@ import { json } from 'express';
 import cookieSession from 'cookie-session';
 
 import { errorHandler, NotFoundError } from '@tichif-ticketing/common';
+import { createTicketRouter } from './routes/new';
 
 const app = express();
 app.set('trust proxy', true);
@@ -18,6 +19,7 @@ app.use(
 );
 
 // Routes
+app.use(createTicketRouter);
 
 app.all('*', () => {
   throw new NotFoundError();
