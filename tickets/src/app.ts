@@ -10,6 +10,7 @@ import {
 } from '@tichif-ticketing/common';
 import { createTicketRouter } from './routes/new';
 import { showTicketRouter } from './routes/show';
+import { listTicketsRouter } from './routes';
 
 const app = express();
 app.set('trust proxy', true);
@@ -28,6 +29,7 @@ app.use(currentUser);
 // Routes
 app.use(createTicketRouter);
 app.use(showTicketRouter);
+app.use(listTicketsRouter);
 
 app.all('*', () => {
   throw new NotFoundError();
