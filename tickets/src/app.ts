@@ -3,7 +3,11 @@ import 'express-async-errors';
 import { json } from 'express';
 import cookieSession from 'cookie-session';
 
-import { errorHandler, NotFoundError } from '@tichif-ticketing/common';
+import {
+  errorHandler,
+  NotFoundError,
+  currentUser,
+} from '@tichif-ticketing/common';
 import { createTicketRouter } from './routes/new';
 
 const app = express();
@@ -17,6 +21,8 @@ app.use(
     secure: process.env.NODE_ENV !== 'test',
   })
 );
+
+app.use(currentUser);
 
 // Routes
 app.use(createTicketRouter);
