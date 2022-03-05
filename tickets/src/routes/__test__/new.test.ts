@@ -2,6 +2,7 @@ import request from 'supertest';
 
 import { app } from '../../app';
 import { signin } from '../../test/authHelper';
+import { Ticket } from '../../models/ticket';
 
 it('has a route handler listening on /api/tickets for post request', async () => {
   const response = await request(app).post('/api/tickets').send({});
@@ -64,12 +65,30 @@ it('returns an error if an invalid price is provided', async () => {
 });
 
 it('creates ticket with valid inputs', async () => {
+  let tickets = await Ticket.countDocuments();
+
+  expect(tickets).toEqual(0);
+
   await request(app)
     .post('/api/tickets')
     .set('Cookie', signin())
     .send({
       title: 'Title',
       price: 20,
+      userId: '1234',
     })
     .expect(201);
+
+  // await request(app)
+  // .post('/api/tickets')
+  // .set('Cookie', signin())
+  // .send({
+  //   title: 'Title',
+  //   price: 20,
+  // })
+  // .expect(201);
+
+  tickets = await Ticket.countDocuments();
+
+  expect(tickets).toEqual(1);
 });

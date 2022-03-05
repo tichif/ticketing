@@ -2,6 +2,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import { body, validationResult } from 'express-validator';
 
 import { requireAuth, RequestValidationError } from '@tichif-ticketing/common';
+import { Ticket } from '../models/ticket';
 
 const router = Router();
 
@@ -21,7 +22,24 @@ router.post(
       throw new RequestValidationError(errors.array());
     }
 
-    return res.send({});
+    // const { title, price } = req.body;
+    const { title, price, userId } = req.body;
+
+    // const ticket = Ticket.build({
+    //   title,
+    //   price,
+    //   userId: req.currentUser!.id
+    // })
+
+    const ticket = Ticket.build({
+      title,
+      price,
+      userId,
+    });
+
+    await ticket.save();
+
+    res.status(201).send(ticket);
   }
 );
 
