@@ -8,7 +8,7 @@ const router = Router();
 
 router.post(
   '/api/tickets',
-  // requireAuth,
+  requireAuth,
   [
     body('title').not().isEmpty().withMessage('Title is required'),
     body('price')
@@ -22,20 +22,20 @@ router.post(
       throw new RequestValidationError(errors.array());
     }
 
-    // const { title, price } = req.body;
-    const { title, price, userId } = req.body;
-
-    // const ticket = Ticket.build({
-    //   title,
-    //   price,
-    //   userId: req.currentUser!.id
-    // })
+    const { title, price } = req.body;
+    // const { title, price, userId } = req.body;
 
     const ticket = Ticket.build({
       title,
       price,
-      userId,
+      userId: req.currentUser!.id,
     });
+
+    // const ticket = Ticket.build({
+    //   title,
+    //   price,
+    //   userId,
+    // });
 
     await ticket.save();
 
